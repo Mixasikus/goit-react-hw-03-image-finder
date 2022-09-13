@@ -1,11 +1,10 @@
 import ImageGalleryItem from './ImageGalleryItem';
 import { GalleryList } from './Image.module';
-// import Modal from './Modal';
 
-export default function ImageGallery({ totalHits, onClick, dataModal }) {
+export default function ImageGallery({ images, onClick, dataModal }) {
   return (
     <GalleryList>
-      {totalHits.map(({ id, tags, webformatURL, largeImageURL }) => (
+      {images.map(({ id, tags, webformatURL, largeImageURL }) => (
         <ImageGalleryItem
           key={id}
           tags={tags}
