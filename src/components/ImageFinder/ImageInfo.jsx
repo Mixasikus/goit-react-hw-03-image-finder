@@ -4,13 +4,14 @@ import ErrorPicture from './ImageError';
 import { MagnifyingGlass } from 'react-loader-spinner';
 import pixabayImage from '../services/pixabay.api';
 import Modal from './Modal';
-// import errorImage from './error.jpg';
 
 export default class ImageInfo extends Component {
   state = {
     image: '',
     status: 'idle',
     showModal: false,
+    tags: [],
+    largeImageURL: [],
   };
 
   toggleModal = () => {
@@ -35,8 +36,13 @@ export default class ImageInfo extends Component {
       });
     }
   }
+
+  dataModal = (tags, largeImageURL) => {
+    this.setState({ tags, largeImageURL });
+  };
+
   render() {
-    const { status, showModal } = this.state;
+    const { status, showModal, largeImageURL, tags } = this.state;
     const { hits } = this.state.image;
 
     if (status === 'pending') {
@@ -58,7 +64,13 @@ export default class ImageInfo extends Component {
     }
 
     if (status === 'resolved') {
-      return <ImageGallery totalHits={hits} onClick={this.toggleModal} />;
+      return (
+        <ImageGallery
+          totalHits={hits}
+          onClick={this.toggleModal}
+          dataModal={this.dataModal}
+        />
+      );
     }
 
     if (status === 'rejected') {
@@ -67,10 +79,11 @@ export default class ImageInfo extends Component {
 
     return (
       <>
-        <button type="button" onClick={this.toggleModal}>
-          октрыть
-        </button>
-        {showModal && <Modal />}
+        {showModal && (
+          <Modal>
+            <img src={largeImageURL} alt={tags} />
+          </Modal>
+        )}
       </>
     );
   }

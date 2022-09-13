@@ -24,7 +24,7 @@ export default class App extends Component {
   };
 
   render() {
-    // const { showModal } = this.state;
+    const { searchImage } = this.state;
 
     return (
       <>
@@ -35,7 +35,7 @@ export default class App extends Component {
         )} */}
 
         <SearchBar onChange={this.handleFormSubmit} />
-        <ImageInfo searchImage={this.state.searchImage} />
+        <ImageInfo searchImage={searchImage} />
         <ToastContainer autoClose={3000} />
         <Button />
       </>
